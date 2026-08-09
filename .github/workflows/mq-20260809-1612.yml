@@ -1,0 +1,35 @@
+name: Merge queue authority fixture
+
+on:
+  pull_request:
+    branches:
+      - mq-base-20260809-1612
+    types:
+      - opened
+      - synchronize
+      - reopened
+  merge_group:
+    types:
+      - checks_requested
+
+permissions:
+  contents: read
+
+jobs:
+  queue-verify:
+    name: queue-verify
+    runs-on: ubuntu-latest
+    env:
+      MQ_EXPECT_FAIL: ${{ vars.MQ_EXPECT_FAIL_20260809_1612 }}
+    steps:
+      - name: Hold merge groups long enough to create a controlled rebuild
+        if: github.event_name == 'merge_group'
+        run: sleep 45
+      - name: Emit controlled result
+        shell: bash
+        run: |
+          if [[ "$MQ_EXPECT_FAIL" == "true" ]]; then
+            echo "Controlled current-group failure"
+            exit 1
+          fi
+          echo "Controlled success"
