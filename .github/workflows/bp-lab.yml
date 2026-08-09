@@ -1,0 +1,17 @@
+name: BP Lab
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "branch-protection-lab"
