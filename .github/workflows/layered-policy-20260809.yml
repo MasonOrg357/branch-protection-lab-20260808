@@ -1,0 +1,37 @@
+name: Layered policy fixture
+
+on:
+  pull_request:
+    branches:
+      - layered-base-20260809-1550
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  classic:
+    name: classic-verify
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "classic requirement satisfied"
+
+  ruleset-a:
+    name: ruleset-a
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ruleset A requirement satisfied"
+
+  ruleset-b:
+    name: ruleset-b
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce controlled title state
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ "$PR_TITLE" == *"[fail-b]"* ]]; then
+            echo "intentional ruleset B failure"
+            exit 1
+          fi
+          echo "ruleset B requirement satisfied"
