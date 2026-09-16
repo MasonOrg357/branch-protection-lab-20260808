@@ -3,6 +3,7 @@
   pull_request_target:
     types: [edited]
     branches: [ghaw-merge-upper-diff-20260915]
+  roles: all
 
 permissions:
   contents: read
