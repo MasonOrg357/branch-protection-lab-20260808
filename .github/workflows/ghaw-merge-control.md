@@ -1,12 +1,17 @@
 ---
 "on":
-  pull_request:
+  pull_request_target:
     types: [edited]
     branches: [ghaw-merge-upper-control-20260915]
 
 permissions:
   contents: read
   copilot-requests: none
+
+features:
+  samples: true
+
+checkout: false
 
 engine:
   id: copilot
@@ -25,6 +30,8 @@ safe-outputs:
     allowed-branches: ["ghaw-merge-control-trigger-20260915"]
     max: 1
     github-token: ${{ secrets.GHAW_MERGE_TOKEN }}
+    samples:
+      - merge_method: squash
 ---
 
 # Owned triggering-target control
