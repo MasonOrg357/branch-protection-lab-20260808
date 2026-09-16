@@ -1,6 +1,6 @@
 ---
 "on":
-  pull_request:
+  pull_request_target:
     types: [edited]
     branches: [ghaw-merge-upper-diff-20260915]
 
@@ -10,6 +10,8 @@ permissions:
 
 features:
   samples: true
+
+checkout: false
 
 engine:
   id: copilot
