@@ -6,7 +6,10 @@
 
 permissions:
   contents: read
-  copilot-requests: write
+  copilot-requests: none
+
+features:
+  samples: true
 
 engine:
   id: copilot
@@ -25,6 +28,9 @@ safe-outputs:
     allowed-branches: ["ghaw-merge-diff-trigger-20260915", "ghaw-merge-diff-payload-20260915"]
     max: 1
     github-token: ${{ secrets.GHAW_MERGE_TOKEN }}
+    samples:
+      - pull_request_number: 12
+        merge_method: squash
 ---
 
 # Owned triggering-target differential
